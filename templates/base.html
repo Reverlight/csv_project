@@ -1,0 +1,18 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      
+    <meta charset="UTF-8">
+{% block head %}
+{% endblock %}
+    <title>{% block title %}Csv App{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'bootstrap5/css/bootstrap.min.css' %}">
+
+</head>
+<body>
+    {% block content %}
+    {% endblock %}
+    <script src="{% static 'bootstrap5/js/bootstrap.min.js'  %}"></script>
+</body>
+</html>
