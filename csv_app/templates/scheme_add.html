@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Add New Scheme
+{% endblock %}
+
+
+
+{% block content %}
+    <form class="w-50 text-center m-auto" id="scheme-form" method="POST">
+        {% csrf_token %}
+        <div class="form-group d-inline-block">
+            <label for="scheme-name"><h2>Scheme name</h2></label>
+            <input type="text" class="form-control" id="scheme-name">
+        </div>
+
+        <h2>Scheme columns</h2>
+        <div id="scheme-columns"></div>
+
+        <button class="mt-2 d-none btn-primary" id="submit-scheme" type="button">Submit</button>
+
+    </form>
+
+
+
+    <form class="w-50 text-center m-auto" id="scheme-form-add">
+        <div class="form-group d-inline-block">
+            <label for="column-name">Column name</label>
+            <input type="text" class="form-control" id="column-name">
+        </div>
+
+        <div class="form-group d-inline-block">
+            <label for="type">Type</label>
+            <select class="form-control" id="type">
+                {% for type in types %}
+                    <option>{{ type.name }}</option>
+                {% endfor %}
+
+            </select>
+        </div>
+        <div class="form-group d-inline-block ">
+            <label for="order">Order</label>
+            <input type="text" class="form-control " id="order">
+        </div>
+        <button class="btn-primary" id="add-scheme" type="button">Add</button>
+    </form>
+
+    <div class="bd-example">
+
+
+    </div>
+
+
+
+    <script src="{% static 'js/scheme_add.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+    {% if scheme_set_list %}
+        {% csrf_token %}
+        <table class="table table-hover ">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Scheme name</th>
+                <th scope="col">Column names and order</th>
+                <th scope="col">Types</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            {% for scheme_set in scheme_set_list %}
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+
+                    <td>{{ scheme_set.scheme_name }} <a class="delete btn-secondary" href="{{  scheme_set.scheme_pk }}">Delete</a> </td>
+                    <td>
+                        {% for colum in scheme_set.scheme_columns %}
+                            {% if forloop.last %}
+                                {{ colum.column_name }}
+                                -{{ colum.order }}.
+                                {% else %}
+                                {{ colum.column_name }}
+                                -{{ colum.order }},
+                            {% endif %}
+
+                        {% endfor %}
+
+                    </td>
+
+                    <td> {% for colum in scheme_set.scheme_columns %}
+
+                         {% if forloop.last %}
+                                {{ colum.type_name}}.
+                                {% else %}
+                                {{ colum.type_name }},
+                            {% endif %}
+                    {% endfor %}</td>
+                </tr>
+
+
+            {% endfor %}
+
+            </tbody>
+        </table>
+
+    {% else %}
+        <h2> There is no Schemes Yet</h2>
+    {% endif %}
+
+
+    <div class="col-md-12 text-center ">
+     <a class="btn btn-primary" href="{% url 'scheme_add' %}">Add New Scheme</a>
+     <a class="btn btn-primary" href="{% url 'data_set' %}">Generate CSV</a>
+    </div>
+
+    <script src="{% static 'js/scheme_list.js' %}" ></script>
+{% endblock %}
