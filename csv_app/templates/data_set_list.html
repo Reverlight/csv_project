@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Data Set
+{% endblock %}
+
+{% block content %}
+    {% csrf_token %}
+    <div class="col-md-12 text-end ">
+        <p class="text-info m-2">Notice, once you click generate, items will autoupdate</p>
+        <p class="text-info m-2">Refreshing app can prevent autoupdating</p>
+        <label for="rows">Rows:</label>
+        <input type="text" id="rows">
+        <a class="btn btn-primary" id="btn-generate-rows">Generate data</a>
+
+    </div>
+
+    {% if scheme_set_list %}
+        <table class="table ">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Scheme name</th>
+                <th scope="col">Status</th>
+                <th scope="col">Actions</th>
+
+            </tr>
+            </thead>
+            <tbody>
+
+            {% for scheme_set in scheme_set_list %}
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td class="scheme-name">{{ scheme_set.scheme_name }}</td>
+                    <td><span class="dataset-status bg-info text-light">Ready to be processed</span></td>
+                    {% if not scheme_set.download_link == '' %}
+                        <td><a href="{{ scheme_set.download_link }}" class="download">Download</a></td>
+                    {% else %}
+                        <td><a class="download"></a></td>
+                    {% endif %}
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+        </table>
+
+    {% else %}
+        <h2> There is no Schemes Yet</h2>
+    {% endif %}
+
+    <script src="{% static 'js/data_set_list.js' %}"></script>
+
+{% endblock %}
