@@ -1,5 +1,5 @@
 # csv_project
-
+Summary: django application for generating CSV datasets. 
 Install:
 
 1.Default set up:
